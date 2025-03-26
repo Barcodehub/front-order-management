@@ -5,9 +5,32 @@ import ProductList from '../components/Product/ProductList';
 
 export default function ProductView() {
   const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
 
+  const [error, setError] = useState('');
+const [loading, setLoading] = useState(false);
+
+useEffect(() => {
+  let mounted = true;
+  
+  const fetchProducts = async () => {
+    if (mounted) setLoading(true);
+    
+    try {
+      const data = await getProducts();
+      if (mounted) setProducts(data);
+    } catch (err) {
+      if (mounted) setError(err instanceof Error ? err.message : 'Failed to fetch products');
+    } finally {
+      if (mounted) setLoading(false);
+    }
+  };
+
+  fetchProducts();
+  
+  return () => {
+    mounted = false;
+  };
+}, []);
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -24,8 +47,23 @@ export default function ProductView() {
   }, []);
 
   if (loading) return (
-    <div className="flex justify-center items-center min-h-[300px]">
-      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mb-8">
+        <div className="h-8 w-64 bg-gray-200 rounded animate-pulse"></div>
+        <div className="h-4 w-96 bg-gray-200 rounded animate-pulse mt-2"></div>
+      </div>
+      
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[...Array(6)].map((_, i) => (
+          <div key={i} className="bg-white rounded-lg shadow-sm overflow-hidden">
+            <div className="h-48 bg-gray-200 animate-pulse"></div>
+            <div className="p-4">
+              <div className="h-4 bg-gray-200 rounded animate-pulse w-3/4"></div>
+              <div className="h-4 bg-gray-200 rounded animate-pulse w-1/2 mt-2"></div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 
