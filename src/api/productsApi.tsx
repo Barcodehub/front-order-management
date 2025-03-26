@@ -9,7 +9,7 @@ export async function loginUser(credentials: { email: string; password: string }
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      throw new Error(error.response?.data?.error || 'Login failed');
+      throw new Error((error.response?.data as { error?: string })?.error || 'Login failed');
     }
     throw new Error('Login failed');
   }
@@ -21,7 +21,7 @@ export async function registerUser(userData: RegisterFormData): Promise<AuthResp
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      throw new Error(error.response?.data?.error || 'Registration failed');
+      throw new Error((error.response?.data as { error?: string })?.error || 'Registration failed');
     }
     throw new Error('Registration failed');
   }
@@ -34,7 +34,7 @@ export async function getProducts(): Promise<Product[]> {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      throw new Error(error.response?.data?.error || 'Failed to fetch products');
+      throw new Error((error.response?.data as { error?: string })?.error || 'Failed to fetch products');
     }
     throw new Error('Failed to fetch products');
   }
@@ -49,7 +49,8 @@ export async function getProductById(id: string): Promise<Product> {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      throw new Error(error.response?.data?.error || 'Product not found');
+      
+      throw new Error((error.response?.data as { error?: string })?.error || 'Product not found');
     }
     throw new Error('Failed to fetch product');
   }
@@ -65,7 +66,8 @@ export async function createProduct(productData: ProductFormData, token: string)
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      throw new Error(error.response?.data?.error || 'Failed to create product');
+      
+      throw new Error((error.response?.data as { error?: string })?.error || 'Failed to create product');
     }
     throw new Error('Failed to create product');
   }
@@ -81,7 +83,8 @@ export async function updateProduct(id: string, productData: Partial<ProductForm
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      throw new Error(error.response?.data?.error || 'Failed to update product');
+      
+      throw new Error((error.response?.data as { error?: string })?.error || 'Failed to update product');
     }
     throw new Error('Failed to update product');
   }
@@ -96,7 +99,8 @@ export async function deleteProduct(id: string, token: string): Promise<void> {
     });
   } catch (error) {
     if (isAxiosError(error)) {
-      throw new Error(error.response?.data?.error || 'Failed to delete product');
+      
+      throw new Error((error.response?.data as { error?: string })?.error || 'Failed to delete product');
     }
     throw new Error('Failed to delete product');
   }
@@ -113,7 +117,8 @@ export async function createOrder(orderData: CreateOrderData, token: string): Pr
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      throw new Error(error.response?.data?.error || 'Failed to create order');
+      
+      throw new Error((error.response?.data as { error?: string })?.error || 'Failed to create order');
     }
     throw new Error('Failed to create order');
   }
@@ -129,7 +134,8 @@ export async function getOrders(token: string): Promise<Order[]> {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      throw new Error(error.response?.data?.error || 'Failed to fetch orders');
+      
+      throw new Error((error.response?.data as { error?: string })?.error || 'Failed to fetch orders');
     }
     throw new Error('Failed to fetch orders');
   }
@@ -145,7 +151,8 @@ export async function getOrderById(id: string, token: string): Promise<Order> {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      throw new Error(error.response?.data?.error || 'Failed to fetch order');
+      
+      throw new Error((error.response?.data as { error?: string })?.error || 'Failed to fetch order');
     }
     throw new Error('Failed to fetch order');
   }

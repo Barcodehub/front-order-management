@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import ErrorMessage from '../components/common/ErrorMessage';
 
 export default function ProfileView() {
   const { user, logout } = useAuth();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error] = useState('');
 
   if (!user) {
     return <ErrorMessage message="User not authenticated" />;
