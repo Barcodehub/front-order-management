@@ -8,74 +8,108 @@ export default function AdminView() {
 
   if (!user || user.role !== 'admin') {
     return (
-      <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md text-center">
-        <h2 className="text-xl font-bold text-red-600 mb-4">Access Denied</h2>
-        <p className="mb-4">You don't have permission to access this page.</p>
+      <div className="max-w-md mx-auto mt-20 p-8 bg-white rounded-xl shadow-lg text-center">
+        <div className="flex justify-center mb-4">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-full">
+            <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+        </div>
+        <h2 className="text-2xl font-bold text-gray-800 mb-3">Access Denied</h2>
+        <p className="text-gray-600 mb-6">You don't have administrator privileges to access this page.</p>
         <Link 
           to="/" 
-          className="text-indigo-600 hover:text-indigo-800 font-medium"
+          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
-          Go back to home
+          Return to Home
         </Link>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
+        <p className="mt-2 text-gray-600">Manage your store's products, orders, and users</p>
+      </div>
       
-      <div className="flex border-b border-gray-200 mb-6">
+      <div className="flex space-x-1 border-b border-gray-200 mb-8">
         <button
-          className={`py-2 px-4 font-medium ${activeTab === 'products' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-gray-500 hover:text-gray-700'}`}
+          className={`py-3 px-6 font-medium text-sm rounded-t-lg transition-colors duration-200 ${activeTab === 'products' 
+            ? 'bg-white text-indigo-600 border-t border-l border-r border-gray-200' 
+            : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'}`}
           onClick={() => setActiveTab('products')}
         >
           Products
         </button>
         <button
-          className={`py-2 px-4 font-medium ${activeTab === 'orders' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-gray-500 hover:text-gray-700'}`}
+          className={`py-3 px-6 font-medium text-sm rounded-t-lg transition-colors duration-200 ${activeTab === 'orders' 
+            ? 'bg-white text-indigo-600 border-t border-l border-r border-gray-200' 
+            : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'}`}
           onClick={() => setActiveTab('orders')}
         >
           Orders
         </button>
         <button
-          className={`py-2 px-4 font-medium ${activeTab === 'users' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-gray-500 hover:text-gray-700'}`}
+          className={`py-3 px-6 font-medium text-sm rounded-t-lg transition-colors duration-200 ${activeTab === 'users' 
+            ? 'bg-white text-indigo-600 border-t border-l border-r border-gray-200' 
+            : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'}`}
           onClick={() => setActiveTab('users')}
         >
           Users
         </button>
       </div>
 
-      <div className="bg-white rounded-lg shadow-md p-6">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
         {activeTab === 'products' && (
-          <div>
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">Product Management</h2>
+          <div className="p-6">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
+              <div>
+                <h2 className="text-xl font-semibold text-gray-900">Product Management</h2>
+                <p className="text-sm text-gray-500 mt-1">Manage your product catalog</p>
+              </div>
               <Link
                 to="/products/create"
-                className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-4 sm:mt-0"
               >
-                Create New Product
+                <svg className="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+                Add New Product
               </Link>
             </div>
-            {/* Aquí iría el listado de productos con opciones de edición/eliminación */}
-            <p className="text-gray-500">Product list will be displayed here</p>
+            {/* Product list would go here */}
+            <div className="bg-gray-50 rounded-lg p-8 text-center border-2 border-dashed border-gray-200">
+              <p className="text-gray-500">Product management table will be displayed here</p>
+            </div>
           </div>
         )}
 
         {activeTab === 'orders' && (
-          <div>
-            <h2 className="text-xl font-semibold mb-4">All Orders</h2>
-            {/* Aquí iría el listado completo de órdenes */}
-            <p className="text-gray-500">Order list will be displayed here</p>
+          <div className="p-6">
+            <div className="mb-6">
+              <h2 className="text-xl font-semibold text-gray-900">Order Management</h2>
+              <p className="text-sm text-gray-500 mt-1">View and process customer orders</p>
+            </div>
+            {/* Order list would go here */}
+            <div className="bg-gray-50 rounded-lg p-8 text-center border-2 border-dashed border-gray-200">
+              <p className="text-gray-500">Order management table will be displayed here</p>
+            </div>
           </div>
         )}
 
         {activeTab === 'users' && (
-          <div>
-            <h2 className="text-xl font-semibold mb-4">User Management</h2>
-            {/* Aquí iría el listado de usuarios */}
-            <p className="text-gray-500">User list will be displayed here</p>
+          <div className="p-6">
+            <div className="mb-6">
+              <h2 className="text-xl font-semibold text-gray-900">User Management</h2>
+              <p className="text-sm text-gray-500 mt-1">Manage system users and permissions</p>
+            </div>
+            {/* User list would go here */}
+            <div className="bg-gray-50 rounded-lg p-8 text-center border-2 border-dashed border-gray-200">
+              <p className="text-gray-500">User management table will be displayed here</p>
+            </div>
           </div>
         )}
       </div>
